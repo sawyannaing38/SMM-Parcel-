@@ -1,0 +1,47 @@
+{% extends "parcel/layout.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'parcel/css/choose.css' %}">
+{% endblock %}
+
+{% block title %}
+    Adding Parcel
+{% endblock %}
+
+{% block body %}
+    <h3 class="info">Adding Parcel</h3>
+
+    <div class="sender-container">
+        <h4>Choose The Sender</h4>
+        <form action="{% url 'parcel:choose' %}" method="POST">
+            {% csrf_token %}
+            <select name="sender1" id="sender" class="sender">
+                <option value="" selected>Mandalay Car</option>
+                <option value="2020">2020</option>
+                <option value="6420">6420</option>
+                <option value="7711">7711</option>
+            </select>
+    
+            <select name="sender2" id="sender" class="sender">
+                <option value="" selected>Pyin Oo Lwin Car</option>
+                <option value="1331">1331</option>
+                <option value="9798">9798</option>
+                <option value="1106">1106</option>
+            </select>
+    
+            <select name="sender3" id="sender" class="sender">
+                <option value="" selected>Biker</option>
+                <option value="zarni">Zar Ni</option>
+                <option value="komyo">Ko Myo</option>
+                <option value="kyawwin">Kyaw Win</option>
+                <option value="gwaytoe">Gway Toe</option>
+            </select>
+    
+            <button class="continueBtn">Continue</button>
+        </form>
+        <p class="message"></p>
+    </div>
+
+    <script src="{% static 'parcel/js/choose.js' %}"></script>
+{% endblock %}

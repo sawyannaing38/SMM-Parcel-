@@ -1,0 +1,45 @@
+{% extends "parcel/layout.html" %}
+
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'parcel/css/add.css' %}">
+{% endblock %}
+
+{% block title %}
+    Add Item
+{% endblock %}
+
+{% block body %}
+    <h3 class="info">Parcel by <span>{{sender}}</span></h3>
+
+    <div class="add-container">
+        <h4>Add Parcel Here</h4>
+        <form action="{% url 'parcel:add' sender %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="sender" id="sender" value="{{sender}}">
+            <input type="text" name="name" id="name" class="name" placeholder="Name" autocomplete="off" autofocus required value="{{name}}">
+            <input type="tel" name="phone" id="phone" class="phone" placeholder="Phone Number" autocomplete="off" required value="{{phone}}">
+            <input type="text" name="item" id="item" class="item" placeholder="Item" autocomplete="off" required value="{{item}}">
+            <input type="number" name="count" id="count" class="count" placeholder="Count" min="0" autocomplete="off" required value="{{count}}">
+            <input type="number" name="cost" id="cost" class="cost" placeholder="Cost" min="0" autocomplete="off" required value="{{cost}}">
+            <select name="status" id="status" class="status">
+                <option value="" disabled {% if status == "" %} selected {% endif %}>Status</option>
+                <option value="close" {% if status == "close" %} selected {% endif %}>Close</option>
+                <option value="unpick" {% if status == "unpick" %} selected {% endif %}>Unpick</option>
+                <option value="busy" {% if status == "busy" %} selected {% endif %}>Busy</option>
+                <option value="unconnect" {% if status == "unconnect" %} selected {% endif %}>unconnect</option>
+                <option value="pick" {% if status == "pick" %} selected {% endif %}>Pick</option>
+            </select>
+            <div class="btn-container">
+                <button class="continue-btn" name="action" value="add">Add & Continue</button>
+                <button class="finish-btn" name="action" value="finish">Finish</button>
+            </div>
+        </form>
+        <p class="message">
+            {% if message %}
+                {{message}}
+            {% endif %}
+        </p>
+    </div>
+{% endblock %}

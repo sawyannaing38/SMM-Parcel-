@@ -1,0 +1,48 @@
+* 
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root 
+{
+    --backgroundColor : #323031;
+    --fontInter : "Inter", serif;
+    --fontRoboto : "Roboto", serif;
+    --primaryTextColor : #FFFFFF;
+    --secondaryTextColor : #C1BDB3;
+    --thirdColor : #000000;
+}
+
+body 
+{
+    background-color: var(--backgroundColor);
+}
+
+header 
+{
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 
+{
+    font-family: var(--fontInter);
+    color: var(--primaryTextColor);
+    font-weight: bold;
+    font-size: 32px;
+}
+
+div.type 
+{
+    font-weight: bold;
+    font-family: var(--fontInter);
+    font-size: 12px;
+    color: var(--thirdColor);
+    background-color: var(--secondaryTextColor);
+    padding: 5px 10px;
+    border-radius: 15px;
+}

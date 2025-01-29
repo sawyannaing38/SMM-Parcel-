@@ -1,0 +1,92 @@
+* 
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root 
+{
+    --backgroundColor : #323031;
+    --fontInter : "Inter", serif;
+    --fontRoboto : "Roboto", serif;
+    --primaryTextColor : #FFFFFF;
+    --secondaryTextColor : #C1BDB3;
+    --thirdColor : #000000;
+    --buttonColor : #7F7979;
+}
+
+.info 
+{
+    margin: 15px;
+    font-size: 20px;
+    font-family: var(--fontRoboto);
+    color: var(--secondaryTextColor);
+    font-weight: 300;
+}
+
+.sender-container
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-flow: column;
+    width: 250px;
+    height: 200px;
+}
+
+.sender-container h4
+{
+    margin: 20px 0px;
+    text-align: center;
+    font-family: var(--fontInter);
+    font-size: 20px;
+    color: var(--primaryTextColor);
+}
+
+.sender-container .sender 
+{
+    width: 100%;
+    margin: 5px 0px;
+    padding: 5px 10px;
+    background-color: transparent;
+    border: 1px solid var(--secondaryTextColor);
+    border-radius: 10px;
+    color: var(--secondaryTextColor);
+    font-family: var(--fontInter);
+}
+
+option 
+{
+    background-color: var(--backgroundColor);
+    border-bottom: 1px solid var(--secondaryTextColor);
+}
+
+.continueBtn 
+{
+    display: inline-block;
+    width: 88px;
+    margin: 10px 0px;
+    border-radius: 5px;
+    background-color: var(--buttonColor);
+    color: var(--primaryTextColor);
+    font-family: var(--fontInter);
+    border: none;
+    padding: 5px 0px;
+    cursor: pointer;
+    transition: all 0.2s linear;
+}
+
+.continueBtn:active 
+{
+    background-color: var(--primaryTextColor);
+    color: var(--buttonColor);
+}
+
+.message 
+{
+    font-family: var(--fontRoboto);
+    color: aqua;
+}
