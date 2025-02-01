@@ -1,0 +1,69 @@
+{% extends "parcel/layout.html" %}
+
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'parcel/css/search.css' %}">
+{% endblock %}
+{% block title %}
+    Searching
+{% endblock %}
+
+{% block body %}
+    <h4 class="info">Search Here</h4>
+    <form action="{% url 'parcel:search' %}" method="POST">
+        {% csrf_token %}
+        <input value="{{searchValue}}" type="text" name="search" id="search" placeholder="Search Here" autofocus autocomplete="off" required>
+        <button>Search</button>
+    </form>
+
+    {% if message %}
+        <p>{{message}}</p>
+    {% endif %}
+
+    {% if remains %}
+        <div class="remain-container">
+            {% for remain in remains %}
+                <div class="item">
+                    <span class="date">{{remain.receiveDate}}</span>
+                    <div class="item-detail">
+                        <div>
+                            <span>{{remain.name}}</span>
+                            <span>{{remain.phone}}</span>
+                            <span>{{remain.status}}</span>
+                        </div>
+                        <div>
+                            <span>{{remain.item}}</span>
+                            <span>{{remain.count}}</span>
+                            <span>{{remain.cost}}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    {% if takens %}
+        <button class="show-btn">Show Taken Parcels</button>
+        <div class="taken-container hidden">
+            {% for taken in takens %}
+                <div class="item">
+                    <span class="date">{{taken.receiveDate}}</span>
+                    <div class="item-detail">
+                        <div>
+                            <span>{{taken.name}}</span>
+                            <span>{{taken.phone}}</span>
+                            <span>{{taken.status}}</span>
+                        </div>
+                        <div>
+                            <span>{{taken.item}}</span>
+                            <span>{{taken.count}}</span>
+                            <span>{{taken.cost}}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <script src="{% static 'parcel/js/search.js' %}"></script>
+{% endblock %}

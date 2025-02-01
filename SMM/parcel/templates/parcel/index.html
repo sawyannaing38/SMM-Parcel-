@@ -1,9 +1,32 @@
 {% extends "parcel/layout.html" %}
+{% load static %}
 
+{% block css %}
+    <link rel="stylesheet" href="{% static 'parcel/css/index.css' %}">
+{% endblock %}
 {% block title %}
     HOME
 {% endblock %}
 
 {% block body %}
-
+    {% for parcel in parcels %}   
+        <h4 class="info">Parcel by <span>{{parcel.sender}}</span></h4>
+        {% for item in parcel.parcels %}
+            <div class="item">
+                <div>
+                    <span>{{item.name}}</span>
+                    <span>{{item.phone}}</span>
+                    <span>{{item.status}}</span>
+                </div>
+                <div>
+                    <span>{{item.item}}</span>
+                    <span>{{item.count}}</span>
+                    <span>{{item.cost}}Ks</span>
+                    {% if item.taken %}
+                        <span>✅</span>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
 {% endblock %}

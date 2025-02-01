@@ -8,7 +8,24 @@ from datetime import date
 
 # Create your views here.
 def index(request):
-    return render(request, "parcel/index.html")
+    # Getting all the parcel senders for today
+    today = date.today()
+
+    senders = Parcel.objects.filter(receiveDate=today).values_list("sender", flat=True).distinct()
+
+    parcels = list()
+
+    # Getting all the parcel receive from senders today
+    for sender in senders:
+        data = {}
+        data["sender"] = sender 
+        data["parcels"] = Parcel.objects.filter(receiveDate=today, sender=sender)
+        parcels.append(data)
+
+    return render(request, "parcel/index.html", {
+        "parcels" : parcels
+    })
+    
 
 # For Adding Parcel
 def choose(request):
@@ -234,3 +251,33 @@ def add(request, sender):
         return HttpResponseRedirect(reverse("parcel:add", args=[sender]))
     else:
         return HttpResponseRedirect(reverse("parcel:index"))
+    
+# For Searching
+def search(request):
+    if request.method == "GET":
+        return render(request, "parcel/search.html")
+    
+    # for post method
+    # getting user input data
+    search_value = request.POST.get("search")
+
+    if not search_value:
+        return HttpResponseRedirect(reverse("parcel:search"))
+    
+    # first search with phone number
+    parcels = Parcel.objects.filter(phone=search_value) or Parcel.objects.filter(name=search_value)
+    
+    if not parcels:
+        return render(request, "parcel/search.html", {
+            "searchValue" : search_value,
+            "message" : f"No Parcel assosiated with {search_value}"
+        })
+    
+    remain_parcels = parcels.filter(taken=False)
+    taken_parcels = parcels.filter(taken=True)
+
+    return render(request, "parcel/search.html", {
+        "searchValue" : search_value,
+        "remains" : remain_parcels,
+        "takens" : taken_parcels
+    })

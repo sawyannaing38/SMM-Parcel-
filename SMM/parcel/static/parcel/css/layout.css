@@ -46,3 +46,17 @@ div.type
     padding: 5px 10px;
     border-radius: 15px;
 }
+
+.banner 
+{
+    display: flex;
+    align-items: center;
+}
+
+.banner span 
+{
+    font-size: 30px;
+    color: var(--primaryTextColor);
+    margin-right: 10px;
+    cursor: pointer;
+}

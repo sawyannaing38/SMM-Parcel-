@@ -1,0 +1,134 @@
+* 
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root 
+{
+    --backgroundColor : #323031;
+    --fontInter : "Inter", serif;
+    --fontRoboto : "Roboto", serif;
+    --primaryTextColor : #FFFFFF;
+    --secondaryTextColor : #C1BDB3;
+    --thirdColor : #000000;
+    --buttonColor : #7F7979;
+    --polishColor : aqua;
+    --modifyColor : #23B950; 
+}
+
+.info 
+{
+    margin: 15px;
+    font-size: 20px;
+    font-family: var(--fontRoboto);
+    color: var(--secondaryTextColor);
+    font-weight: 300;
+}
+
+form 
+{
+    margin: 20px 15px 0px;
+    display: flex;
+}
+
+form input 
+{
+    width: 85%;
+    border-radius: 20px 0px 0px 20px;
+    border: none;
+    outline: none;
+    padding: 7px;
+    background-color: transparent;
+    border: 1px solid var(--primaryTextColor);
+    color: var(--secondaryTextColor);
+    font-weight: bold;
+}
+
+form button 
+{
+    width: 15%;
+    border-radius: 0px 20px 20px 0px;
+    border: none;
+}
+
+.date 
+{
+    font-family: var(--fontRoboto);
+    font-size: 12px;
+    font-style: italic;
+    font-weight: bold;
+    color: var(--primaryTextColor);
+}
+
+.item-detail div
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-detail 
+{
+    border: 1px solid var(--primaryTextColor);
+    padding: 5px 10px;
+}
+
+.item 
+{
+    margin: 10px 0px;
+}
+
+.remain-container 
+{
+    margin: 20px 15px;
+}
+
+.taken-container 
+{
+    margin: 20px 15px;
+}
+
+.item-detail div:first-child span 
+{
+    color: var(--modifyColor);
+    font-family: var(--fontRoboto);
+    font-size: 16px;
+}
+
+.item-detail div:first-child 
+{
+    margin: 5px 0px;
+}
+
+.item-detail div:nth-child(2) span
+{
+    color: var(--primaryTextColor);
+    font-family: var(--fontRoboto);
+    font-size: 16px;
+    margin: 5px 0px;
+}
+
+.show-btn 
+{
+    margin: 0px 15px;
+    background-color: transparent;
+    color: var(--primaryTextColor);
+    padding: 5px;
+    border: 1px solid var(--secondaryTextColor);
+    border-radius: 5px;
+    transition: all 0.3s linear;
+    cursor: pointer;
+}
+
+.show-btn:hover 
+{
+    background-color: var(--primaryTextColor);
+    color: var(--backgroundColor);
+}
+
+.hidden 
+{
+    display: none;
+}
