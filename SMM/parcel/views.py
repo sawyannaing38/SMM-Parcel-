@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse 
 from .helpers import senders, statusList
 from .models import Parcel 
+from phonenumbers import NumberParseException
+from phonenumber_field.phonenumber import PhoneNumber
 
 from datetime import date
 
@@ -71,168 +73,67 @@ def add(request, sender):
     action = request.POST.get("action")
 
     if not sender:
-        return render(request,"parcel/add.html", {
-            "sender" : sender,
-            "name" : name,
-            "phone" : phone,
-            "item" : item,
-            "count" : count,
-            "cost" : cost,
-            "status" : status,
-            "message" : "Missing Sender"
-        })
+        return catchError(request=request, sender=sender, name=name, phone=phone, item=item, count=count, cost=cost, status=status, message="Missing Sender")
     
     if sender not in senders:
-        return render(request,"parcel/add.html", {
-            "sender" : sender,
-            "name" : name,
-            "phone" : phone,
-            "item" : item,
-            "count" : count,
-            "cost" : cost,
-            "status" : status,
-            "message" : "Invalid Sender"
-        })
+        return catchError(request=request, sender=sender, name=name, phone=phone, item=item, count=count, cost=cost, status=status, message="Invalid Sender")
     
     if not name:
-        return render(request,"parcel/add.html", {
-            "sender" : sender,
-            "name" : name,
-            "phone" : phone,
-            "item" : item,
-            "count" : count,
-            "cost" : cost,
-            "status" : status,
-            "message" : "Missing Name"
-        })
+        return catchError(request=request, sender=sender, name=name, phone=phone, item=item, count=count, cost=cost, status=status, message="Missing Name")
     
     if not phone:
-        return render(request,"parcel/add.html", {
-            "sender" : sender,
-            "name" : name,
-            "phone" : phone,
-            "item" : item,
-            "count" : count,
-            "cost" : cost,
-            "status" : status,
-            "message" : "Missing Phone Number"
-        })
+        return catchError(request=request, sender=sender, name=name, phone=phone, item=item, count=count, cost=cost, status=status, message="Missing Phone Number")
     
     if not item:
-        return render(request,"parcel/add.html", {
-            "sender" : sender,
-            "name" : name,
-            "phone" : phone,
-            "item" : item,
-            "count" : count,
-            "cost" : cost,
-            "status" : status,
-            "message" : "Missing Item"
-        })
+        return catchError(request=request, sender=sender, name=name, phone=phone, item=item, count=count, cost=cost, status=status, message="Missing Item")
     
     if not count:
-        return render(request,"parcel/add.html", {
-            "sender" : sender,
-            "name" : name,
-            "phone" : phone,
-            "item" : item,
-            "count" : count,
-            "cost" : cost,
-            "status" : status,
-            "message" : "Missing Count"
-        })
+        return catchError(request=request, sender=sender, name=name, phone=phone, item=item, count=count, cost=cost, status=status, message="Missing Count")
     
     if not cost:
-        return render(request,"parcel/add.html", {
-            "sender" : sender,
-            "name" : name,
-            "phone" : phone,
-            "item" : item,
-            "count" : count,
-            "cost" : cost,
-            "status" : status,
-            "message" : "Missing Cost"
-        })
+        return catchError(request=request, sender=sender, name=name, phone=phone, item=item, count=count, cost=cost, status=status, message="Missing Cost")
     
     if not status:
-        return render(request,"parcel/add.html", {
-            "sender" : sender,
-            "name" : name,
-            "phone" : phone,
-            "item" : item,
-            "count" : count,
-            "cost" : cost,
-            "status" : status,
-            "message" : "Missing Status"
-        })
+        return catchError(request=request, sender=sender, name=name, phone=phone, item=item, count=count, cost=cost, status=status, message="Missing Status")
     
     # Checking valid countinput
     try:
         count = int(count)
     except ValueError:
-        return render(request,"parcel/add.html", {
-            "sender" : sender,
-            "name" : name,
-            "phone" : phone,
-            "item" : item,
-            "count" : count,
-            "cost" : cost,
-            "status" : status,
-            "message" : "Invalid Count Input"
-        })
+        return catchError(request=request, sender=sender, name=name, phone=phone, item=item, count=count, cost=cost, status=status, message="Invalid Count Input")
     else:
         if count < 0:
-            return render(request,"parcel/add.html", {
-            "sender" : sender,
-            "name" : name,
-            "phone" : phone,
-            "item" : item,
-            "count" : count,
-            "cost" : cost,
-            "status" : status,
-            "message" : "Invalid Count Input"
-        })
+            return catchError(request=request, sender=sender, name=name, phone=phone, item=item, count=count, cost=cost, status=status, message="Invalid Count Input")
+
     
     # checking valid cost
     try:
         cost = int(cost)
     except ValueError:
-        return render(request,"parcel/add.html", {
-            "sender" : sender,
-            "name" : name,
-            "phone" : phone,
-            "item" : item,
-            "count" : count,
-            "cost" : cost,
-            "status" : status,
-            "message" : "Invalid Cost"
-        })
+        return catchError(request=request, sender=sender, name=name, phone=phone, item=item, count=count, cost=cost, status=status, message="Invalid Cost")
     else:
         if cost < 0:
-            return render(request,"parcel/add.html", {
-            "sender" : sender,
-            "name" : name,
-            "phone" : phone,
-            "item" : item,
-            "count" : count,
-            "cost" : cost,
-            "status" : status,
-            "message" : "Invalid Cost"
-        })
+           return catchError(request=request, sender=sender, name=name, phone=phone, item=item, count=count, cost=cost, status=status, message="Invalid Cost")
 
     # Checking status input
     if status not in statusList:
-        return render(request,"parcel/add.html", {
-            "sender" : sender,
-            "name" : name,
-            "phone" : phone,
-            "item" : item,
-            "count" : count,
-            "cost" : cost,
-            "status" : status,
-            "message" : "Invalid Status"
-        })
+        return catchError(request=request, sender=sender, name=name, phone=phone, item=item, count=count, cost=cost, status=status, message="Invalid Status")
     
+    if not action:
+        return catchError(request=request, sender=sender, name=name, phone=phone, item=item, count=count, cost=cost, status=status, message="Missing Action")
+    
+    if phone.startswith('09'):
+        phone = '+95' + phone[1:]
+        
+    try:
+        # Check valid phone number or not
+        phone_number = PhoneNumber.from_string(phone)
+    
+        if not phone_number.is_valid():
+            return catchError(request=request, sender=sender, name=name, phone=phone, item=item, count=count, cost=cost, status=status, message="Invalid Phone Number")
+    except NumberParseException:
+            return catchError(request=request, sender=sender, name=name, phone=phone, item=item, count=count, cost=cost, status=status, message="Invalid Phone Number")       
+
     # Storing in db
     parcel = Parcel(
         sender = sender,
@@ -264,8 +165,9 @@ def search(request):
     if not search_value:
         return HttpResponseRedirect(reverse("parcel:search"))
     
+    search_value = search_value.replace("09", "+959")
     # first search with phone number
-    parcels = Parcel.objects.filter(phone=search_value) or Parcel.objects.filter(name=search_value)
+    parcels = Parcel.objects.filter(phone=search_value) or Parcel.objects.filter(name__iexact=search_value)
     
     if not parcels:
         return render(request, "parcel/search.html", {
@@ -280,4 +182,17 @@ def search(request):
         "searchValue" : search_value,
         "remains" : remain_parcels,
         "takens" : taken_parcels
+    })
+
+# For catching error
+def catchError(request, name, phone, item, cost, count, message, status, sender):
+    return render(request, "parcel/add.html", {
+        "sender" : sender,
+        "name" : name,
+        "phone" : phone,
+        "item" : item,
+        "count" : count,
+        "cost" : cost,
+        "status" : status,
+        "message" : message
     })
