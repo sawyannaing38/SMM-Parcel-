@@ -12,7 +12,7 @@
     {% for parcel in parcels %}   
         <h4 class="info">Parcel by <span>{{parcel.sender}}</span></h4>
         {% for item in parcel.parcels %}
-            <div class="item">
+            <div class="item {% if not item.taken %} remain {% endif %}">
                 <div>
                     <span>{{item.name}}</span>
                     <span>{{item.phone}}</span>
